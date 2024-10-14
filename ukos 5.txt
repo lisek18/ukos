@@ -1,0 +1,103 @@
+geany skrypt1.sh 
+chmod 755 skrypt1.sh
+./skrypt1.sh
+
+ćwiczenie 1
+
+
+#!/bin/bash
+
+if [ "$#" -lt 5 ]; then
+    echo "Brak wystarczającej liczby argumentów. Przekaż przynajmniej 5 argumentów numerycznych."
+    exit 1
+fi
+
+# Sumowanie argumentów
+sum=0
+for num in "$@"; do
+    sum=$(echo "$sum + $num" | bc)
+done
+
+echo "Suma argumentów: $sum"
+
+
+
+ćwiczenie 2
+
+
+#!/bin/bash
+
+mkdir -p ~/Documents/copied
+
+if [ "$#" -eq 1 ]; then
+    cp -r *."$1" ~/Documents/copied/
+else
+    cp "$@" ~/Documents/copied/
+fi
+
+
+
+ćwiczenie 3
+
+#!/bin/bash
+
+touch baza.txt
+
+for i in {1..4}; do
+    read -p "Podaj wartość dla kolumny $i: " value
+    values+=("$value")
+done
+
+echo "${values[0]},${values[1]},${values[2]},${values[3]}" >> baza.txt
+echo "Dodano dane do baza.txt"
+
+
+
+ćwiczenie 4
+
+
+#!/bin/bash
+
+output_file="polaczone.txt"
+> "$output_file"  # Czyści plik, jeśli istnieje
+
+for file in $(find . -name "*.txt"); do
+    cat "$file" >> "$output_file"
+done
+
+echo "Zawartość plików .txt została połączona w $output_file."
+
+
+
+ćwiczenie 5
+
+
+#!/bin/bash
+
+# Wyświetlanie menu
+echo "Wybierz operację:"
+echo "1. Dodawanie"
+echo "2. Odejmowanie"
+echo "3. Mnożenie"
+echo "4. Dzielenie"
+read -p "Wybierz numer operacji (1-4): " choice
+
+# Wczytywanie liczb
+read -p "Podaj pierwszą liczbę: " num1
+read -p "Podaj drugą liczbę: " num2
+
+# Wykonanie operacji
+case $choice in
+    1) result=$(echo "$num1 + $num2" | bc); echo "Wynik dodawania: $result" ;;
+    2) result=$(echo "$num1 - $num2" | bc); echo "Wynik odejmowania: $result" ;;
+    3) result=$(echo "$num1 * $num2" | bc); echo "Wynik mnożenia: $result" ;;
+    4) 
+        if [ "$num2" -ne 0 ]; then
+            result=$(echo "scale=2; $num1 / $num2" | bc); 
+            echo "Wynik dzielenia: $result"
+        else
+            echo "Błąd: nie można dzielić przez zero."
+        fi
+        ;;
+    *) echo "Nieprawidłowy wybór." ;;
+esac

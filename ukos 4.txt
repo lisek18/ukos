@@ -1,0 +1,91 @@
+geany skrypt1.sh 
+chmod 755 skrypt1.sh
+./skrypt1.sh
+
+ćwiczenie 1
+
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo "Nie podano żadnych argumentów."
+else
+    echo "Podano argumenty: $*"
+fi
+
+
+ćwiczenie 2
+
+#!/bin/bash
+
+# Zawartość katalogu Downloads
+echo "Zawartość katalogu Downloads:"
+ls ~/Downloads
+
+# Liczba plików w katalogu
+file_count=$(ls -1 ~/Downloads | wc -l)
+echo "Liczba plików w katalogu Downloads: $file_count"
+
+
+
+
+ćwiczenie 3
+
+#!/bin/bash
+
+if [ $# -ne 3 ]; then
+    echo "Błąd: należy podać dokładnie trzy argumenty."
+    exit 1
+fi
+
+# Przypisanie parametrów
+param1=$1
+param2=$2
+param3=$3
+
+# Znalezienie największego
+if [ $param1 -ge $param2 ] && [ $param1 -ge $param3 ]; then
+    echo "Największy parametr to: $param1"
+elif [ $param2 -ge $param1 ] && [ $param2 -ge $param3 ]; then
+    echo "Największy parametr to: $param2"
+else
+    echo "Największy parametr to: $param3"
+fi
+
+
+
+
+ćwiczenie 4
+
+Komp.txt 
+Sektor1 Komputer1
+Sektor2 Komputer2
+Sektor3 Komputer3
+
+#!/bin/bash
+
+if [ $# -ne 4 ]; then
+    echo "Błąd: należy podać trzy sektory oraz liczbę x."
+    exit 1
+fi
+
+sektor1=$1
+sektor2=$2
+sektor3=$3
+x=$4
+
+# Filtrowanie pliku
+grep -E "($sektor1|$sektor2|$sektor3)" komputery.txt | head -n $x
+
+
+
+
+
+ćwiczenie 5
+#!/bin/bash
+
+timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+filename="log${timestamp}.txt"
+top -b -n 1 > $filename
+echo "Zapisano wynik polecenia top do pliku: $filename"
+
+

@@ -1,0 +1,34 @@
+geany skrypt1.sh 
+chmod 755 skrypt1.sh
+./skrypt1.sh
+
+chmod +x backup.sh
+
+
+Cw 1 
+
+#!/bin/bash
+
+if [ ! -d /tmp/backup ]; then
+    mkdir -p /tmp/backup
+    if [ $? -ne 0 ]; then
+        echo "Błąd: Nie udało się utworzyć katalogu /tmp/backup."
+        exit 1
+    fi
+fi
+
+user=$(whoami)
+data=$(date +"%Y-%m-%d")
+backup_file="/tmp/backup/${user}_backup_${data}.tar.gz"
+tar -czf $backup_file /home/$user 2>/dev/null
+#jeśli cały katalog to
+#tar -czf $backup_file /home 2>/dev/null
+
+if [ -f $backup_file ]; then
+    echo "Kopia zapasowa została utworzona pomyślnie: $backup_file"
+else
+    echo "Błąd: Nie udało się utworzyć kopii zapasowej."
+    exit 1
+fi
+
+
