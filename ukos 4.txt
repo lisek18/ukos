@@ -48,7 +48,21 @@ fi
 
 
 
-ćwiczenie 4
+
+ćwiczenie 4 
+#!/bin/bash
+
+sektor1=$1
+sektor2=$2
+sektor3=$3
+x=$4
+
+grep -E "\s($sektor1)\s" komputery.txt | head -n "$x"
+grep -E "\s($sektor2)\s" komputery.txt | head -n "$x"
+grep -E "\s($sektor3)\s" komputery.txt | head -n "$x"
+
+
+ćwiczenie 4- wersja 2 
 
 #!/bin/bash
 
@@ -63,9 +77,6 @@ sektor3=$3
 x=$4
 
 grep -E "($sektor1|$sektor2|$sektor3)" komputery.txt | head -n $x
-
-
-
 
 
 ćwiczenie 5
