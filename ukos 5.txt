@@ -8,11 +8,10 @@ chmod 755 skrypt1.sh
 #!/bin/bash
 
 if [ "$#" -lt 5 ]; then
-    echo "Brak wystarczającej liczby argumentów. Przekaż przynajmniej 5 argumentów numerycznych."
+    echo "Podano mniej niz 5 argumentow"
     exit 1
 fi
 
-# Sumowanie argumentów
 sum=0
 for num in "$@"; do
     sum=$(echo "$sum + $num" | bc)
