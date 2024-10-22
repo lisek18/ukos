@@ -8,13 +8,13 @@ chmod 755 skrypt1.sh
 #!/bin/bash
 
 if [ "$#" -lt 5 ]; then
-    echo "Podano mniej niz 5 argumentow"
+    echo "Podano mniej niż 5 argumentów"
     exit 1
 fi
 
 sum=0
 for num in "$@"; do
-    sum=$(echo "$sum + $num" | bc)
+    sum=$((sum + num))
 done
 
 echo "Suma argumentów: $sum"
