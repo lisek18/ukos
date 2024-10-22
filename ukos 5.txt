@@ -73,7 +73,7 @@ echo "Zawartość plików .txt została połączona w $output_file."
 
 #!/bin/bash
 
-# Wyświetlanie menu
+
 echo "Wybierz operację:"
 echo "1. Dodawanie"
 echo "2. Odejmowanie"
@@ -81,22 +81,41 @@ echo "3. Mnożenie"
 echo "4. Dzielenie"
 read -p "Wybierz numer operacji (1-4): " choice
 
-# Wczytywanie liczb
+
 read -p "Podaj pierwszą liczbę: " num1
 read -p "Podaj drugą liczbę: " num2
 
-# Wykonanie operacji
+
 case $choice in
-    1) result=$(echo "$num1 + $num2" | bc); echo "Wynik dodawania: $result" ;;
-    2) result=$(echo "$num1 - $num2" | bc); echo "Wynik odejmowania: $result" ;;
-    3) result=$(echo "$num1 * $num2" | bc); echo "Wynik mnożenia: $result" ;;
+    1) 
+        result=$((num1 + num2)) 
+        echo "Wynik dodawania: $result"
+        ;;
+    2) 
+        result=$((num1 - num2)) 
+        echo "Wynik odejmowania: $result"
+        ;;
+    3) 
+        result=0
+        for ((i=0; i<num2; i++)); do
+            result=$((result + num1))
+        done
+        echo "Wynik mnożenia: $result"
+        ;;
     4) 
         if [ "$num2" -ne 0 ]; then
-            result=$(echo "scale=2; $num1 / $num2" | bc); 
-            echo "Wynik dzielenia: $result"
+            result=0
+            temp_num1=$num1
+            while [ "$temp_num1" -ge "$num2" ]; do
+                temp_num1=$((temp_num1 - num2))
+                result=$((result + 1))
+            done
+            echo "Wynik dzielenia: $result (bez reszty)"
         else
             echo "Błąd: nie można dzielić przez zero."
         fi
         ;;
-    *) echo "Nieprawidłowy wybór." ;;
+    *) 
+        echo "Nieprawidłowy wybór."
+        ;;
 esac
